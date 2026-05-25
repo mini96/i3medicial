@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>i3 Medical is now a Lumicare Company</title>
-<meta http-equiv="refresh" content="16;url=https://lumicare.one/">
+<meta http-equiv="refresh" content="16;url=https://www.lumicare.one/">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -96,12 +96,15 @@
     width: 63.24%;
     /* start hidden, revealed left-to-right */
     clip-path: inset(0 100% 0 0);
+    -webkit-clip-path: inset(0 100% 0 0);
     opacity: 0;
-    transition: clip-path 1.6s cubic-bezier(0.22, 1, 0.36, 1) ,
+    transition: clip-path 1.6s cubic-bezier(0.22, 1, 0.36, 1),
+                -webkit-clip-path 1.6s cubic-bezier(0.22, 1, 0.36, 1),
                 opacity 0.6s ease;
   }
   .logo-sub.revealed {
     clip-path: inset(0 0 0 0);
+    -webkit-clip-path: inset(0 0 0 0);
     opacity: 1;
   }
 
@@ -211,8 +214,8 @@
       </svg>
       <div class="countdown-number" id="countdown-number">10</div>
     </div>
-    <div class="redirect-label">redirecting to lumicare.one</div>
-    <a href="https://lumicare.one/" class="skip-link">Go now &rarr;</a>
+    <div class="redirect-label">You will now be redirected to www.lumicare.one</div>
+    <a href="https://www.lumicare.one/" class="skip-link">Go now &rarr;</a>
   </div>
 </div>
 
@@ -255,7 +258,7 @@
       n--; countdownNumber.textContent=n;
       progress.style.strokeDashoffset=C*(1-n/10);
       if(n<=3) progress.style.stroke='#f0f0f5';
-      if(n<=0){ clearInterval(t); window.location.href='https://lumicare.one/'; }
+      if(n<=0){ clearInterval(t); window.location.replace('https://www.lumicare.one/'); }
     },1000);
   }, 5000);
 </script>
