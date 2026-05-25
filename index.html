@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>i3 Medical</title>
+<link rel="icon" type="image/png" sizes="48x48" href="./favicon.png">
 <meta http-equiv="refresh" content="16;url=https://www.lumicare.one/">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;700&display=swap" rel="stylesheet">
 <style>
@@ -16,9 +17,14 @@
     --bg-dark: #08080f;
   }
 
+  html { height: -webkit-fill-available; }
+
   body {
     background: var(--bg-dark);
+    /* Safari fallback first, then modern small viewport height to avoid toolbar overlap. */
     min-height: 100vh;
+    min-height: -webkit-fill-available;
+    min-height: 100svh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,6 +39,7 @@
     position: fixed;
     border-radius: 50%;
     filter: blur(120px);
+    -webkit-filter: blur(120px);
     pointer-events: none;
     z-index: 0;
   }
@@ -59,7 +66,7 @@
     position: relative;
     z-index: 1;
     text-align: center;
-    padding: 2rem;
+    padding: max(2rem, env(safe-area-inset-top)) max(2rem, env(safe-area-inset-right)) max(2rem, env(safe-area-inset-bottom)) max(2rem, env(safe-area-inset-left));
     max-width: 760px;
     width: 100%;
   }
@@ -73,20 +80,28 @@
   }
 
   .logo-main {
+    width: 64vw;
+    min-width: 260px;
+    max-width: 460px;
     width: clamp(260px, 64vw, 460px);
     opacity: 0;
     transform: translateY(14px) scale(0.98);
     filter: blur(6px);
-    transition: opacity 1.2s ease, transform 1.2s ease, filter 1.2s ease;
+    -webkit-filter: blur(6px);
+    transition: opacity 1.2s ease, transform 1.2s ease, filter 1.2s ease, -webkit-filter 1.2s ease;
   }
   .logo-main.visible {
     opacity: 1;
     transform: translateY(0) scale(1);
     filter: blur(0);
+    -webkit-filter: blur(0);
   }
 
   /* Subtext sits at 63.6% the width of the main logo to match the original lockup */
   .logo-sub-wrap {
+    width: 64vw;
+    min-width: 260px;
+    max-width: 460px;
     width: clamp(260px, 64vw, 460px);
     display: flex;
     justify-content: flex-end;   /* right-aligned to logo edge */
@@ -183,6 +198,22 @@
     0% { opacity: 0; transform: translateY(0) translateX(0); }
     20% { opacity: 0.4; } 80% { opacity: 0.4; }
     100% { opacity: 0; transform: translateY(-100px) translateX(30px); }
+  }
+
+
+  /* Keep the full-screen animated background stable on phone-sized WebKit viewports. */
+  @media (max-width: 600px) {
+    .glow {
+      filter: blur(72px);
+      -webkit-filter: blur(72px);
+    }
+    .glow--magenta { width: 340px; height: 340px; top: 14%; left: -10%; }
+    .glow--cyan { width: 300px; height: 300px; bottom: 10%; right: -10%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .glow, .particle { animation: none; }
+    .logo-main, .logo-sub, .divider, .message, .countdown-area { transition-duration: 0.01ms; }
   }
 </style>
 </head>
